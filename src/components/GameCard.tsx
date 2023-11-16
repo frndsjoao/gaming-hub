@@ -13,12 +13,12 @@ interface CardGameProps {
 
 export default function GameCard({ name, releaseDate, stores }: CardGameProps) {
   return (
-    <div className='relative max-w-xs h-48 bg-cyan-800 rounded mx-4 my-4'>
+    <div className='relative w-80 h-48 bg-cyan-800 rounded cursor-pointer'>
       <div></div>
 
       <div className='absolute bottom-0 w-full flex items-center justify-between bg-gradient-to-t from-neutral-900 to-transparent px-4 pt-6 pb-3 rounded-b'>
         <div>
-          <p className='inline text-base font-medium'>{name || 'grand theft auto: san andreas'} </p>
+          <p className='inline text-base font-medium'>{name || 'Undefined'} </p>
           <p className='inline text-base font-medium'>({releaseDate || 'TBD'})</p>
         </div>
         <div className='flex gap-3'>
