@@ -16,7 +16,6 @@ export default function FloatBar() {
       <button
         id="user-icon"
         className='flex bg-neutral-800 p-3 rounded-full ml-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] cursor-pointer border-transparent border-2 hover:border-cyan-900 transition-colors'
-        onClick={() => console.log('user Menu')}
       >
         <HiUser className="text-2xl" />
       </button>

@@ -1,14 +1,9 @@
-import Head from "next/head";
 import Link from "next/link";
 
 export default function Login() {
 
   return (
     <>
-      <Head>
-        <title>GamingHub | Login</title>
-      </Head>
-
       <div className="w-screen h-screen flex items-center justify-center">
         <div className="w-2/4 flex flex-col items-center justify-center">
           <div>
@@ -29,7 +24,8 @@ export default function Login() {
             />
             <br />
             <Link
-              href="/dashboard"
+              replace
+              href="/games"
               className="flex items-center justify-center mt-2 bg-cyan-600 rounded w-60 px3 py-2 font-medium hover:bg-cyan-700 transition-colors"
             >
               Login
