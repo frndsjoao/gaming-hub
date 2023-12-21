@@ -1,9 +1,10 @@
 'use client'
+import { Rating } from "@mui/material"
 import { formatToDate } from "brazilian-values"
 import Image from "next/image"
-import Link from "next/link"
-import { useParams } from "next/navigation"
-import { HiPlus, HiStar, HiXCircle } from "react-icons/hi"
+import { useParams, useRouter } from "next/navigation"
+import { HiHeart, HiPlus, HiXCircle } from "react-icons/hi"
+import { SiEpicgames, SiSteam } from "react-icons/si"
 
 const mock = {
   "slug": "alan-wake-2",
@@ -176,17 +177,19 @@ const mock = {
 }
 
 function Game() {
+  const router = useRouter();
+
   const game = mock
   const genres = game.genres.map((i) => i.name).join(', ')
   const platforms = game.platforms.map((i) => i.platform.name).join(', ')
 
   return (
-    <div className="fixed top-0 left-0 w-full h-screen px-2 bg-neutral-950 bg-opacity-60 z-20 flex items-center justify-center">
-      <div className="max-w-3xl h-auto flex-1 bg-neutral-900 mx-auto rounded-xl pb-10 relative">
-        <Link href="/games">
-          <HiXCircle className="absolute z-10 text-3xl right-2 top-2 text-neutral-700 rounded-full cursor-pointer hover:text-neutral-800 transition-all" />
-        </Link>
-        <div className="flex-1 relative h-72 w-full">
+    <div className="fixed top-0 left-0 w-full h-full px-4 bg-neutral-950 bg-opacity-60 z-20 flex items-center justify-center">
+      <div className="w-full flex-1 bg-neutral-900 mx-auto rounded-xl relative pb-8 md:mx-12 lg:max-w-2xl">
+        <button onClick={() => router.back()} className="absolute z-10 right-2 top-2 rounded-full cursor-pointer">
+          <HiXCircle className="text-3xl text-neutral-600 hover:text-neutral-400 transition-all" />
+        </button>
+        <div className="flex-1 relative h-60 w-full md:h-64 lg:h-72">
           <Image
             src={mock.background_image}
             alt="Picture of the author"
@@ -196,52 +199,62 @@ function Game() {
           />
         </div>
 
-        <div className="mx-8">
-          <h1 className="mt-5 font-bold text-2xl">{game.name}</h1>
-          <p className="bg-neutral-700 text-xs text-neutral-100 w-max py-0.5 px-1.5 rounded mt-1 mb-8 font-normal">{formatToDate(new Date(game.released))}</p>
-
-          <div className="flex items-center">
-            <button className="flex items-center mr-8 bg-neutral-100 text-neutral-900 px-3 py-1 rounded text-sm hover:bg-cyan-600 hover:text-stone-50 transition-all duration-300">
-              <HiPlus className="mr-2 text-lg" />
-              My Games
-            </button>
-            <button className="flex items-center bg-neutral-100 text-neutral-900 px-3 py-1 rounded text-sm hover:bg-cyan-600 hover:text-stone-50 transition-all duration-300">
-              <HiPlus className="mr-2 text-lg" />
-              Wishlist
-            </button>
-            <div className="flex items-center ml-auto text-2xl">
-              <HiStar className="cursor-pointer hover:text-yellow-500 transition-all duration-300" />
-              <HiStar className="cursor-pointer hover:text-yellow-500 transition-all duration-300" />
-              <HiStar className="cursor-pointer hover:text-yellow-500 transition-all duration-300" />
-              <HiStar className="cursor-pointer hover:text-yellow-500 transition-all duration-300" />
-              <HiStar className="cursor-pointer hover:text-yellow-500 transition-all duration-300" />
+        <div className="mx-4 mt-5 md:mx-12">
+          <div className="flex flex-row items-center justify-between">
+            <div>
+              <h1 className="font-bold text-2xl">{game.name}</h1>
+              <p className="bg-neutral-700 text-xs text-neutral-100 w-max py-0.5 px-1.5 rounded mt-1 font-normal">{formatToDate(new Date(game.released))}</p>
+            </div>
+            <div className="flex flex-row items-center gap-x-2">
+              <SiEpicgames className="text-2xl text-neutral-50" />
+              <SiSteam className="text-2xl text-neutral-50" />
             </div>
           </div>
 
-          <div className="mx-auto max-w-xl my-6 flex gap-x-36 gap-y-8 flex-wrap justify-center">
-            <div>
-              <p className="text-xs text-neutral-600">Platforms</p>
-              <p className="text-xs text-neutral-100 flex-shrink w-40">{platforms}</p>
+          <div className="flex items-end mt-4">
+            <button className="h-8 w-8 flex items-center justify-center mr-4 bg-neutral-100 text-neutral-900 rounded text-sm hover:bg-cyan-600 hover:text-stone-50 transition-all duration-300 md:w-auto md:px-8">
+              <HiPlus className="text-lg md:mr-2" />
+              <span className="hidden md:block">My Games</span>
+            </button>
+            <button className="h-8 w-8 flex items-center justify-center mr-4 bg-neutral-100 text-neutral-900 rounded text-sm hover:bg-cyan-600 hover:text-stone-50 transition-all duration-300 md:w-auto md:px-8">
+              <HiHeart className="text-lg md:mr-2" />
+              <span className="hidden md:block">Wishlist</span>
+            </button>
+            <div className="flex flex-col justify-center items-start ml-auto text-2xl">
+              <span className="text-xs mb-1 font-light">Excellent!</span>
+              <Rating className="bg-neutral-100 h-8 rounded pt-1 px-1 md:px-2" name="half-rating" defaultValue={2.5} precision={0.5} />
             </div>
-            <div>
+          </div>
+
+          {/* <div className="w-full mt-8 flex gap-x-8 gap-y-8 flex-wrap justify-center">
+            <div className="w-5/12">
+              <p className="text-xs text-neutral-600">Platforms</p>
+              <p className="text-xs text-neutral-100 flex-shrink">{platforms}</p>
+            </div>
+            <div className="w-4/12">
               <p className="text-xs text-neutral-600">Genres</p>
               {game.genres.map((i) => (
-                <p className="text-xs text-neutral-100 flex-shrink w-40" key={i.id}>{i.name}</p>
+                <p className="text-xs text-neutral-100 flex-shrink" key={i.id}>{i.name}</p>
               ))}
             </div>
-            <div>
+            <div className="w-5/12">
               <p className="text-xs text-neutral-600">Metacritic Score</p>
-              <p className="text-xs text-neutral-100 flex-shrink w-40">{game.metacritic || '-'}</p>
+              <p className="text-xs text-neutral-100 flex-shrink">{game.metacritic || '-'}</p>
             </div>
-            <div>
+            <div className="w-4/12">
               <p className="text-xs text-neutral-600">ESRB Rating</p>
-              <p className="text-xs text-neutral-100 flex-shrink w-40">{game.esrb_rating.name_en}</p>
+              <p className="text-xs text-neutral-100 flex-shrink">{game.esrb_rating.name_en}</p>
             </div>
-          </div>
+          </div> */}
 
-          <div>
+          <div id="divider" className="h-px bg-neutral-700 w-9/12 mx-auto mt-8 md:hidden" />
+
+          <div className="mt-6 md:mt-10">
             <h2>Review:</h2>
-            <textarea cols={30} rows={5} className='text-sm mt-2 py-1 rounded-lg border-2 border-neutral-800 bg-neutral-900 px-4 bg-opacity-90 focus:outline-none focus:border-cyan-700' />
+            <textarea cols={30} rows={4} className='w-full mt-2 py-1 rounded-lg border-2 border-neutral-800 bg-neutral-900 px-4 bg-opacity-90 focus:outline-none focus:border-cyan-700 text-sm font-light' />
+            <button className="h-8 px-8 ml-auto mt-2 flex items-center justify-center bg-neutral-100 text-neutral-900 rounded text-sm hover:bg-cyan-600 hover:text-stone-50 transition-all duration-300">
+              <span className="font-medium">Save</span>
+            </button>
           </div>
 
         </div>

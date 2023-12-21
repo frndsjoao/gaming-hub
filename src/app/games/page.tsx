@@ -7,19 +7,29 @@ const mock = [
   { id: 2, name: 'The Last of Us' },
   { id: 3, name: 'Subnautica' },
   { id: 4, name: 'Grand Theft Auto: San Andreas' },
+  { id: 4, name: 'Grand Theft Auto: San Andreas' },
+  { id: 4, name: 'Grand Theft Auto: San Andreas' },
+  { id: 4, name: 'Grand Theft Auto: San Andreas' },
+  { id: 4, name: 'Grand Theft Auto: San Andreas' },
+  { id: 4, name: 'Grand Theft Auto: San Andreas' },
+  { id: 4, name: 'Grand Theft Auto: San Andreas' },
+  { id: 4, name: 'Grand Theft Auto: San Andreas' },
+  { id: 4, name: 'Grand Theft Auto: San Andreas' },
 ]
 
 export default function Homepage() {
 
   return (
     <>
-      <div className="flex flex-1">
+      <div className="px-4 flex flex-1 max-w-screen-2xl items-center justify-center mx-auto">
         <FloatBar />
 
-        <div className="mt-32 max-w-screen-2xl mx-auto px-4">
-          <h1 className="ml-16 mb-4 text-2xl font-bold tracking-wider">Explore most popular games:</h1>
+        <div className="mt-32 mx-auto w-full flex flex-col">
+          <h1 className="text-2xl font-bold tracking-wider text-center lg:text-left lg:ml-10 xl:ml-20">
+            Explore most popular games:
+          </h1>
 
-          <div className="flex gap-x-6 gap-y-8 flex-wrap justify-center">
+          <div className="mt-4 flex flex-wrap gap-3 justify-center">
             {mock.map((game) => (
               <Link key={game.id} href={`/games/${game.id}`}>
                 <GameCard name={game.name} />
